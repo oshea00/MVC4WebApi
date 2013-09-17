@@ -1,0 +1,23 @@
+﻿<div>
+<h1>{{title}}</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Account Code</th>
+            <th>Account Name</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="account in accounts">
+            <td>{{account.Id}}</td>
+            <td>{{account.AccountCode}}</td>
+            <td>{{account.Name}}</td>
+            <td>{{account.IsActive}}</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
