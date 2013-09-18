@@ -10,7 +10,7 @@ using MVC4WebApi.Models;
 
 namespace MVC4WebApi.Controllers
 {
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         IAccountRepo _accountRepo;
 
@@ -23,13 +23,13 @@ namespace MVC4WebApi.Controllers
         {
             foreach (var acct in _accountRepo.getAll())
             {
-                yield return acct.AccountMap(version: 1);
+                yield return acct.AccountMap(Version);
             }
         }
 
         public Account Get(int id)
         {
-            return _accountRepo.getById(id).AccountMap(version: 1);
+            return _accountRepo.getById(id).AccountMap(Version);
         }
 
         public void Post([FromBody]Account account)

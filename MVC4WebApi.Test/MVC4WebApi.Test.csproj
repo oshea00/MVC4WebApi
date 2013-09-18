@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="AccountControllerSpecs.cs" />
     <Compile Include="AccountRepoSpecs.cs" />
+    <Compile Include="BaseApiControllerSpecs.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ExtensionSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,7 +8,7 @@ namespace MVC4WebApi.Extensions
 {
     public static class MapExtensions
     {
-        public static Account AccountMap(this MVC4WebApi.Domain.Account acct, int version)
+        public static Account AccountMap(this MVC4WebApi.Domain.Account acct, double version)
         {
             if (acct == null)
                 return null;

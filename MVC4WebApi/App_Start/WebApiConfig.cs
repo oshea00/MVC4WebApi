@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using MVC4WebApi.Extensions;
 
 namespace MVC4WebApi
 {

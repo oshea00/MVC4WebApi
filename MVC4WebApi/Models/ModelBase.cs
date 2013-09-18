@@ -7,6 +7,6 @@ namespace MVC4WebApi.Models
 {
     public abstract class ModelBase
     {
-        public int Version { get; set; }
+        public double Version { get; set; }
     }
 }
