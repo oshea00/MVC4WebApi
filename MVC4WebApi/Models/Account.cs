@@ -10,6 +10,7 @@ namespace MVC4WebApi.Models
         public int Id { get; set; }
         public string AccountCode { get; set; }
         public string Name { get; set; }
+        public string AccountName { get; set; }
         public bool IsActive { get; set; }
     }
 }

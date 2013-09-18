@@ -13,14 +13,31 @@ namespace MVC4WebApi.Extensions
             if (acct == null)
                 return null;
 
+            // Version 1 Account Model
 
+            if (version == 1.0)
+            {
+                return new Account
+                {
+                    Version = version,
+                    Id = acct.Id,
+                    AccountCode = acct.AccountCode,
+                    Name = acct.Name,
+                    IsActive = acct.IsActive,
+                    AccountName = null,
+                };
+            }
+
+            // Version 2 (Current) Account Model
             return new Account
             {
                 Version = version,
                 Id = acct.Id,
-                AccountCode = acct.AccountCode,
-                Name = acct.Name,
+                AccountCode = "V2" + acct.AccountCode,
+                Name = null,
                 IsActive = acct.IsActive,
+                AccountName = acct.Name,
+
             };
         }
     }
