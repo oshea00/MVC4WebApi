@@ -35,9 +35,30 @@ namespace MVC4WebApi.Test
         }
 
         [Test]
-        public void returnsZeroIfCannotpdateAnAccount()
+        public void returnsZeroIfUpdatingNonExistentAccount()
         {
-            Assert.AreEqual(0, accountRepo.Save(new Account { Id = 9000, AccountCode = "A01", Name = "Account A01 Updated", IsActive = true }));
+            Assert.AreEqual(0, accountRepo.Save(new Account { Id = -1, AccountCode = "A01", Name = "Account A01 Updated", IsActive = true }));
+        }
+
+        [Test]
+        public void CanGetAllAccounts()
+        {
+            Assert.Greater(accountRepo.getAll().Count(), 0);
+        }
+
+        [Test]
+        public void CanDeleteExistingAccount()
+        {
+            var id = accountRepo.Save(new Account { Id = 0, AccountCode = "A01" });
+            accountRepo.Delete(id);
+            Assert.IsNull(accountRepo.getById(id));
+        }
+
+        [Test]
+        public void CanDeleteNonExistingAccount()
+        {
+            accountRepo.Delete(-1);
+            Assert.IsNull(accountRepo.getById(-1));
         }
 
 

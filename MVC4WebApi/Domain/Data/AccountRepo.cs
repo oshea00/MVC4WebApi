@@ -10,6 +10,7 @@ namespace MVC4WebApi.Domain.Data
         IEnumerable<Account> getAll();
         Account getById(int id);
         int Save(Account account);
+        void Delete(int id);
     }
 
     public class AccountRepo : IAccountRepo
@@ -46,9 +47,9 @@ namespace MVC4WebApi.Domain.Data
             {
                 // add to repository and return assigned Id
                 var id = _accounts.Count();
-                account.Id = id;
+                account.Id = id+1;
                 _accounts.Add(account);
-                return id;
+                return account.Id;
             }
             else
             {
@@ -58,10 +59,17 @@ namespace MVC4WebApi.Domain.Data
                     _accounts[account.Id - 1] = account;
                     return account.Id;
                 }
-
-                // update existing Id (if it exists) and return Id
             }
             return 0;
+        }
+
+        public void Delete(int id)
+        {
+            var account = _accounts.FirstOrDefault(a=>a.Id==id);
+            if (account != null)
+            {
+                _accounts.Remove(account);
+            }
         }
     }
 }

@@ -34,17 +34,18 @@ namespace MVC4WebApi.Controllers
 
         public void Post([FromBody]Account account)
         {
-            // Add
+            var domainAccount = account.AccountMap(Version);
+            _accountRepo.Save(domainAccount);
         }
 
         public void Put(int id, [FromBody]Account account)
         {
-            // Update
+            var domainAccount = account.AccountMap(Version);
+            _accountRepo.Save(domainAccount);
         }
 
         public void Delete(int id)
         {
-
         }
     }
 }
