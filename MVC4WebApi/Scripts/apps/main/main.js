@@ -9,6 +9,6 @@ var mainApp = angular.module('mainApp', ['ngResource'])
                 controller: 'MainController'
             });
         $locationProvider.html5Mode(true);
-        $httpProvider.defaults.headers.common['X-Version'] = '2.0';
+        $httpProvider.defaults.headers.common['X-Version'] = '1.0';
     });
 mainApp.value('$', $);

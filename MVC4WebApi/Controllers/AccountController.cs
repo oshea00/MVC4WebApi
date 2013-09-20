@@ -34,14 +34,17 @@ namespace MVC4WebApi.Controllers
 
         public void Post([FromBody]Account account)
         {
+            // Add
         }
 
         public void Put(int id, [FromBody]Account account)
         {
+            // Update
         }
 
         public void Delete(int id)
         {
+
         }
     }
 }

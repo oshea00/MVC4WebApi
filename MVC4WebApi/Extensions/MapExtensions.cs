@@ -40,5 +40,33 @@ namespace MVC4WebApi.Extensions
 
             };
         }
+
+        public static MVC4WebApi.Domain.Account AccountMap(this Account acct, double version)
+        {
+            if (acct == null)
+                return null;
+
+            // Version 1 Account Model
+
+            if (version == 1.0)
+            {
+                return new MVC4WebApi.Domain.Account
+                {
+                    Id = acct.Id,
+                    AccountCode = acct.AccountCode,
+                    Name = acct.Name,
+                    IsActive = acct.IsActive,
+                };
+            }
+
+            // Version 2 (Current) Account Model
+            return new MVC4WebApi.Domain.Account
+            {
+                Id = acct.Id,
+                AccountCode = acct.AccountCode,
+                Name = acct.AccountName,
+                IsActive = acct.IsActive,
+            };
+        }
     }
 }
