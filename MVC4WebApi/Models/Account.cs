@@ -11,6 +11,8 @@ namespace MVC4WebApi.Models
         public string AccountCode { get; set; }
         public string Name { get; set; }
         public string AccountName { get; set; }
+        public double Balance { get; set; }
+        public DateTime BalanceDate { get; set; }
         public bool IsActive { get; set; }
     }
 }

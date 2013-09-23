@@ -19,10 +19,13 @@ namespace MVC4WebApi.Domain.Data
 
         public AccountRepo()
         {
+            var rand = new Random(1000);
+            //var rand = new Random((int)DateTime.Now.Ticks);
+            DateTime balDate = DateTime.Today;
             _accounts = new List<Account>();
             for (var i = 0; i < 1000; i++)
             {
-                var acct = new Account { Id = (i + 1), AccountCode = "A" + String.Format("{0:D4}", i), Name = "Account " + i, IsActive = (i % 10) != 0 };
+                var acct = new Account { Id = (i + 1), AccountCode = "A" + String.Format("{0:D4}", i), Name = "Account " + i, IsActive = (i % 10) != 0, Balance = (rand.Next(1,11)*1000.00), BalanceDate = balDate };
                 _accounts.Add(acct);
             }
         }

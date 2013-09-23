@@ -37,6 +37,8 @@ namespace MVC4WebApi.Extensions
                 Name = null,
                 IsActive = acct.IsActive,
                 AccountName = acct.Name,
+                Balance = acct.Balance,
+                BalanceDate = acct.BalanceDate,
 
             };
         }
@@ -66,6 +68,8 @@ namespace MVC4WebApi.Extensions
                 AccountCode = acct.AccountCode,
                 Name = acct.AccountName,
                 IsActive = acct.IsActive,
+                Balance = acct.Balance,
+                BalanceDate = acct.BalanceDate,
             };
         }
     }

@@ -9,6 +9,8 @@
             <th>Account Code (1/2)</th>
             <th>Name (1)</th>
             <th>Account Name (2)</th>
+            <th>Account Balance (2)</th>
+            <th>Balance Date (2)</th>
             <th>Active (1)</th>
         </tr>
     </thead>
@@ -16,9 +18,11 @@
         <tr ng-repeat="account in accounts">
             <td>{{account.Id}}</td>
             <td>{{account.Version}}</td>
-            <td>{{account.AccountCode}}</td>
+            <td><editable value="account.AccountCode"/></td>
             <td>{{account.Name}}</td>
             <td>{{account.AccountName}}</td>
+            <td style="text-align: right">{{account.Balance | number:2}}</td>
+            <td>{{account.BalanceDate | date:'MM/dd/yy'}}</td>
             <td>{{account.IsActive}}</td>
         </tr>
     </tbody>
