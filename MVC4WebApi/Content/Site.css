@@ -1,1 +1,10 @@
-﻿
+﻿.loader
+{
+    background-image: url('ajax-loader.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+}
+
+.nav, .pagination, .carousel a { cursor: pointer; }
+

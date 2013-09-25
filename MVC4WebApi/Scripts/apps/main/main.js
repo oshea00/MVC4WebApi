@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../angular.js" />
 'use strict';
 
-var mainApp = angular.module('mainApp', ['ngResource'])
+var mainApp = angular.module('mainApp', ['ngResource','ui.bootstrap'])
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider.when('/',
             {

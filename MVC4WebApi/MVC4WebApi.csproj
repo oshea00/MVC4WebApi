@@ -201,6 +201,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\apps\main\main.html" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -282,6 +283,7 @@
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\apps\main\accountItemController.js" />
     <Content Include="Scripts\apps\main\editableDirective.js" />
     <Content Include="Scripts\apps\main\main.js" />
     <Content Include="Scripts\apps\main\maincontroller.js" />
@@ -598,6 +600,7 @@
     <Content Include="Scripts\tests\main\accountSvcSpecs.js" />
     <Content Include="Scripts\tests\main\maincontrollerSpecs.js" />
     <Content Include="Scripts\tests\main\notifySvcSpecs.js" />
+    <Content Include="Scripts\ui-bootstrap-0.6.0.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Unity.Mvc3.README.txt" />
