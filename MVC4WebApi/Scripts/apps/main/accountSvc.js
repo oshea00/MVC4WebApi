@@ -4,11 +4,19 @@
 'use strict';
 
 mainApp.factory('accountSvc', function ($resource, $q) {
-    var resource = $resource('/api/Account/:id', { id: '@id' });
+    var Account = $resource('/api/Account/:id', { id: '@id' });
     return {
         getAccounts: function () {
             var deferred = $q.defer();
-            resource.query(
+            Account.query(
+                function (response) { deferred.resolve(response); },
+                function (response) { deferred.reject(response); }
+                );
+            return deferred.promise;
+        },
+        saveAccount: function (account) {
+            var deferred = $q.defer();
+            account.$save(
                 function (response) { deferred.resolve(response); },
                 function (response) { deferred.reject(response); }
                 );

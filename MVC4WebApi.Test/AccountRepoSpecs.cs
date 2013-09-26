@@ -23,42 +23,42 @@ namespace MVC4WebApi.Test
         [Test]
         public void canSaveAnAccount()
         {
-            Assert.Greater(accountRepo.Save(new Account { Id = 0, AccountCode = "A01" }), 0);
+            Assert.Greater(accountRepo.Add(new Account { Id = 0, AccountCode = "A01" }).Id, 0);
         }
 
         [Test]
         public void canUpdateAnAccount()
         {
-            Assert.AreEqual(1,accountRepo.Save(new Account { Id = 1, AccountCode = "A01", Name = "Account A01 Updated", IsActive = true }));
-            var account = accountRepo.getById(1);
+            Assert.AreEqual(true,accountRepo.Update(new Account { Id = 1, AccountCode = "A01", Name = "Account A01 Updated", IsActive = true }));
+            var account = accountRepo.Get(1);
             Assert.AreEqual(account.Name, "Account A01 Updated");
         }
 
         [Test]
-        public void returnsZeroIfUpdatingNonExistentAccount()
+        public void returnsFalseIfUpdatingNonExistentAccount()
         {
-            Assert.AreEqual(0, accountRepo.Save(new Account { Id = -1, AccountCode = "A01", Name = "Account A01 Updated", IsActive = true }));
+            Assert.AreEqual(false, accountRepo.Update(new Account { Id = -1, AccountCode = "A01", Name = "Account A01 Updated", IsActive = true }));
         }
 
         [Test]
         public void CanGetAllAccounts()
         {
-            Assert.Greater(accountRepo.getAll().Count(), 0);
+            Assert.Greater(accountRepo.GetAll().Count(), 0);
         }
 
         [Test]
         public void CanDeleteExistingAccount()
         {
-            var id = accountRepo.Save(new Account { Id = 0, AccountCode = "A01" });
-            accountRepo.Delete(id);
-            Assert.IsNull(accountRepo.getById(id));
+            var account = accountRepo.Add(new Account { Id = 0, AccountCode = "A01" });
+            accountRepo.Delete(account.Id);
+            Assert.IsNull(accountRepo.Get(account.Id));
         }
 
         [Test]
         public void CanDeleteNonExistingAccount()
         {
             accountRepo.Delete(-1);
-            Assert.IsNull(accountRepo.getById(-1));
+            Assert.IsNull(accountRepo.Get(-1));
         }
 
 

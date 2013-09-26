@@ -7,9 +7,10 @@ namespace MVC4WebApi.Domain.Data
 {
     public interface IAccountRepo
     {
-        IEnumerable<Account> getAll();
-        Account getById(int id);
-        int Save(Account account);
+        IEnumerable<Account> GetAll();
+        Account Get(int id);
+        Account Add(Account account);
+        bool Update(Account account);
         void Delete(int id);
     }
 
@@ -30,7 +31,7 @@ namespace MVC4WebApi.Domain.Data
             }
         }
 
-        public IEnumerable<Account> getAll()
+        public IEnumerable<Account> GetAll()
         {
             foreach (var acct in _accounts)
             {
@@ -38,32 +39,30 @@ namespace MVC4WebApi.Domain.Data
             }
         }
 
-        public Account getById(int id)
+        public Account Get(int id)
         {
             return _accounts.FirstOrDefault(x => x.Id == id);
         }
 
 
-        public int Save(Account account)
+        public Account Add(Account account)
         {
-            if (account.Id == 0)
+            // add to repository and return assigned Id
+            var id = _accounts.Count();
+            account.Id = id+1;
+            _accounts.Add(account);
+            return account;
+        }
+
+        public bool Update(Account account)
+        {
+            var acct = _accounts.FirstOrDefault(a => a.Id == account.Id);
+            if (acct != null)
             {
-                // add to repository and return assigned Id
-                var id = _accounts.Count();
-                account.Id = id+1;
-                _accounts.Add(account);
-                return account.Id;
+                _accounts[account.Id - 1] = account;
+                return true;
             }
-            else
-            {
-                var acct = _accounts.FirstOrDefault(a => a.Id == account.Id);
-                if (acct != null)
-                {
-                    _accounts[account.Id - 1] = account;
-                    return account.Id;
-                }
-            }
-            return 0;
+            return false;
         }
 
         public void Delete(int id)

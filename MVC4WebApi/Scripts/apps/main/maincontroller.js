@@ -22,7 +22,10 @@ mainApp.controller('MainController',
 
             accountModal.result.then(
                 function (account) {
-                    angular.copy(account,item.account);
+                    var promise = accountSvc.saveAccount(account);
+                    promise.then(function (response) {
+                        angular.copy(account, item.account);
+                    });
                 },
                 function (cancelvalue) {
                     var val = cancelvalue;

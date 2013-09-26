@@ -21,7 +21,7 @@ namespace MVC4WebApi.Controllers
 
         public IEnumerable<Account> Get()
         {
-            foreach (var acct in _accountRepo.getAll())
+            foreach (var acct in _accountRepo.GetAll())
             {
                 yield return acct.AccountMap(Version);
             }
@@ -29,23 +29,42 @@ namespace MVC4WebApi.Controllers
 
         public Account Get(int id)
         {
-            return _accountRepo.getById(id).AccountMap(Version);
+            return _accountRepo.Get(id).AccountMap(Version);
         }
 
-        public void Post([FromBody]Account account)
+        public HttpResponseMessage PostAccount(Account account)
         {
-            var domainAccount = account.AccountMap(Version);
-            _accountRepo.Save(domainAccount);
-        }
-
-        public void Put(int id, [FromBody]Account account)
-        {
-            var domainAccount = account.AccountMap(Version);
-            _accountRepo.Save(domainAccount);
+            if (account.Id > 0)
+            {
+                if (!_accountRepo.Update(account.AccountMap(Version)))
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                var response = Request.CreateResponse<Account>(HttpStatusCode.OK,account);
+                string uri = Url.Link("DefaultApi", new { id = account.Id });
+                response.Headers.Location = new Uri(uri);
+                return response;
+            }
+            else
+            {
+                var domainAccount = account.AccountMap(Version);
+                var newDomainAccount = _accountRepo.Add(domainAccount);
+                var newAccount = newDomainAccount.AccountMap(Version);
+                var response = Request.CreateResponse<Account>(HttpStatusCode.Created, newAccount);
+                string uri = Url.Link("DefaultApi", new { id = newAccount.Id });
+                response.Headers.Location = new Uri(uri);
+                return response;
+            }
         }
 
         public void Delete(int id)
         {
+            MVC4WebApi.Domain.Account account = _accountRepo.Get(id);
+            if (account == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            _accountRepo.Delete(account.Id);
         }
     }
 }
