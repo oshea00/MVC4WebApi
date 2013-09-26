@@ -5,25 +5,28 @@ mainApp.controller('MainController',
         $scope.accounts = accountSvc.getAccounts();
         $scope.title = 'Accounts';
 
-        $scope.open = function (element) {
-
-            var e = element;
-            var modalInstance = $modal.open({
-                templateUrl: 'accountContent.html',
+        $scope.updateItem = function (item) {
+            var accountModal = $modal.open({
+                templateUrl: 'accountContent',
                 controller: 'accountItemController',
+                backdrop: false,
                 resolve: {
                     account: function () {
-                        return e.account;
+                        return item.account;
+                    },
+                    title: function () {
+                        return 'Update Account';
                     }
                 }
             });
 
-            modalInstance.result.then(function (account) {
-                e.account = account;
-            },
-            function (cancelvalue) {
-                var val = cancelvalue;
-            }
+            accountModal.result.then(
+                function (account) {
+                    angular.copy(account,item.account);
+                },
+                function (cancelvalue) {
+                    var val = cancelvalue;
+                }
             );
 
         }

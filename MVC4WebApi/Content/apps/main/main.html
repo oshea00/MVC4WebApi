@@ -1,17 +1,4 @@
-﻿<script type="text/ng-template" id="accountContent.html">
-    <div class="modal-header">
-        <h2>Update Account</h2>
-    </div>
-    <div class="modal-body">
-        <input type="text" value="{{account.AccountName}}" />{{account.AccountName}}
-    </div>
-    <div class="modal-footer">
-        <button class="btn" ng-click="dismiss()">Close</button>
-        <button class="btn btn-primary" ng-click="saveAccount()">Save</button>
-    </div>
-</script>
-
-<div>
+﻿<div>
 <h2>{{title}}</h2>
 <table class="table table-hover">
     <thead>
@@ -27,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="account in accounts" ng-click="open(this)">
+        <tr ng-repeat="account in accounts" ng-click="updateItem(this)">
             <td>{{account.Id}}</td>
             <td>{{account.Version}}</td>
             <td><editable value="account.AccountCode"/></td>
@@ -39,6 +26,18 @@
         </tr>
     </tbody>
 </table>
-
 </div>
+
+<script type="text/ng-template" id="accountContent">
+    <div class="modal-header">
+        <h2>{{title}}</h2>
+    </div>
+    <div class="modal-body">
+        <input type="text" ng-model="account.AccountName" />
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="dismiss()">Close</button>
+        <button class="btn btn-primary" ng-click="saveAccount()">Save</button>
+    </div>
+</script>
 

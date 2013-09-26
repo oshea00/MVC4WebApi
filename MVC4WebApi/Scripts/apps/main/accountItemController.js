@@ -1,9 +1,10 @@
 ﻿'use strict';
 
 mainApp.controller('accountItemController',
-    function accountItemController($scope, $modalInstance, account) {
+    function accountItemController($scope, $modalInstance, account, title) {
 
-        $scope.account = account;
+        $scope.account = angular.copy(account);
+        $scope.title = title;
 
         $scope.dismiss = function () {
             $modalInstance.dismiss('cancel');
