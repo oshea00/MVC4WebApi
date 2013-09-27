@@ -40,20 +40,14 @@ namespace MVC4WebApi.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
-                var response = Request.CreateResponse<Account>(HttpStatusCode.OK,account);
-                string uri = Url.Link("DefaultApi", new { id = account.Id });
-                response.Headers.Location = new Uri(uri);
-                return response;
+                return Request.CreateResponse<Account>(HttpStatusCode.OK,account);
             }
             else
             {
                 var domainAccount = account.AccountMap(Version);
                 var newDomainAccount = _accountRepo.Add(domainAccount);
                 var newAccount = newDomainAccount.AccountMap(Version);
-                var response = Request.CreateResponse<Account>(HttpStatusCode.Created, newAccount);
-                string uri = Url.Link("DefaultApi", new { id = newAccount.Id });
-                response.Headers.Location = new Uri(uri);
-                return response;
+                return Request.CreateResponse<Account>(HttpStatusCode.Created, newAccount);
             }
         }
 

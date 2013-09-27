@@ -2,7 +2,10 @@
 
 mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
-        $scope.accounts = accountSvc.getAccounts();
+        //$scope.accounts = [];
+        accountSvc.getAccounts().then(function (accounts) {
+            $scope.accounts = accounts;
+        });
         $scope.title = 'Accounts';
 
         $scope.openAccountDialog = function (item) {
@@ -32,7 +35,33 @@ mainApp.controller('MainController',
                 }
             );
 
-        }
+        };
+
+        $scope.openConfirmDialog = function (item) {
+            var confirmDialog = $modal.open({
+                templateUrl: 'confirmDialog',
+                controller: 'confirmDialogController',
+                backdrop: false,
+                resolve: {
+                    account: function () {
+                        return item.account;
+                    }
+                }
+            });
+
+            confirmDialog.result.then(
+                function (account) {
+                    var promise = accountSvc.deleteAccount(account);
+                    promise.then(function (response) {
+                        // Do something to delete from model
+                        $scope.accounts.splice(item.$index, 1);
+                    });
+                },
+                function (cancelvalue) {
+                    var val = cancelvalue;
+                }
+            );
+        };
 
     });
 

@@ -3,6 +3,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
+            <th>Action</th>
             <th>Id</th>
             <th>Version</th>
             <th>Account Code (1/2)</th>
@@ -14,7 +15,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="account in accounts" ng-click="openAccountDialog(this)">
+        <tr ng-repeat="account in accounts">
+            <td><i class="icon-edit" ng-click="openAccountDialog(this)" tooltip="Edit" tooltip-popup-delay="1000"/>
+                <i class="icon-remove" ng-click="openConfirmDialog(this)" tooltip="Delete" tooltip-popup-delay="1000"/></td>
             <td>{{account.Id}}</td>
             <td>{{account.Version}}</td>
             <td>{{account.AccountCode}}</td>
@@ -22,24 +25,42 @@
             <td>{{account.AccountName}}</td>
             <td style="text-align: right">{{account.Balance | number:2}}</td>
             <td>{{account.BalanceDate | date:'MM/dd/yy'}}</td>
-            <td>{{account.IsActive}}</td>
+            <td><input type="checkbox" ng-model="account.IsActive" disabled /></td>
         </tr>
     </tbody>
 </table>
 </div>
 
+<script type="text/ng-template" id="confirmDialog">
+    <div class="modal-header">
+        <h2>Confirmation</h2>
+    </div>
+    <div class="modal-body">
+    <p>Confirm Delete?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="dismiss()">Cancel</button>
+        <button class="btn btn-primary" ng-click="deleteAccount()">OK</button>
+    </div>
+</script>
+
 <script type="text/ng-template" id="accountDialog">
     <div class="modal-header ">
         <h2>{{title}}</h2>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" style="height: 900px;">
     <table>
     <tbody>
-        <tr><td>Account Code</td><td><input type="text" ng-model="account.AccountCode" /></td></tr>
-        <tr><td>Account Name</td><td><input type="text" ng-model="account.AccountName" /></td></tr>
-        <tr><td>Balance</td><td><input type="text" ng-model="account.Balance"/></td></tr>
-        <tr><td>Balance Date</td><td><input type="text" ng-model="account.BalanceDate"/></td></tr>
-        <tr><td>Active</td><td><input type="text" ng-model="account.IsActive" /></td></tr>
+        <tr><td>Account Code</td>
+            <td><input type="text" ng-model="account.AccountCode" /></td></tr>
+        <tr><td>Account Name</td>
+            <td><input type="text" ng-model="account.AccountName" /></td></tr>
+        <tr><td>Balance</td>
+            <td><input type="number" step="0.01" ng-model="account.Balance"/></td></tr>
+        <tr><td>Balance Date</td>
+            <td><input type="text" ng-model="account.BalanceDate" datepicker-popup="MM/dd/yyyy"/></td></tr>
+        <tr><td>Active</td>
+            <td><input type="checkbox" ng-model="account.IsActive"/></td></tr>
     </tbody>
     </table>
     </div>

@@ -21,6 +21,14 @@ mainApp.factory('accountSvc', function ($resource, $q) {
                 function (response) { deferred.reject(response); }
                 );
             return deferred.promise;
-        }
-    };
+        },
+        deleteAccount: function (account) {
+        var deferred = $q.defer();
+        account.$delete({ id: account.Id},
+            function (response) { deferred.resolve(response); },
+            function (response) { deferred.reject(response); }
+            );
+        return deferred.promise;
+    }
+};
 });
