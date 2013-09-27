@@ -4,24 +4,20 @@
     <thead>
         <tr>
             <th>Action</th>
-            <th>Id</th>
             <th>Version</th>
-            <th>Account Code (1/2)</th>
-            <th>Name (1)</th>
-            <th>Account Name (2)</th>
-            <th>Account Balance (2)</th>
-            <th>Balance Date (2)</th>
-            <th>Active (1)</th>
+            <th>Account Code</th>
+            <th>Account Name</th>
+            <th style="text-align: right">Account Balance</th>
+            <th>Balance Date</th>
+            <th>Active</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="account in accounts">
             <td><i class="icon-edit" ng-click="openAccountDialog(this)" tooltip="Edit" tooltip-popup-delay="1000"/>
                 <i class="icon-remove" ng-click="openConfirmDialog(this)" tooltip="Delete" tooltip-popup-delay="1000"/></td>
-            <td>{{account.Id}}</td>
             <td>{{account.Version}}</td>
             <td>{{account.AccountCode}}</td>
-            <td>{{account.Name}}</td>
             <td>{{account.AccountName}}</td>
             <td style="text-align: right">{{account.Balance | number:2}}</td>
             <td>{{account.BalanceDate | date:'MM/dd/yy'}}</td>
