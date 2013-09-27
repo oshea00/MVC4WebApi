@@ -5,10 +5,10 @@ mainApp.controller('MainController',
         $scope.accounts = accountSvc.getAccounts();
         $scope.title = 'Accounts';
 
-        $scope.updateItem = function (item) {
-            var accountModal = $modal.open({
-                templateUrl: 'accountContent',
-                controller: 'accountItemController',
+        $scope.openAccountDialog = function (item) {
+            var accountDialog = $modal.open({
+                templateUrl: 'accountDialog',
+                controller: 'accountDialogController',
                 backdrop: false,
                 resolve: {
                     account: function () {
@@ -20,7 +20,7 @@ mainApp.controller('MainController',
                 }
             });
 
-            accountModal.result.then(
+            accountDialog.result.then(
                 function (account) {
                     var promise = accountSvc.saveAccount(account);
                     promise.then(function (response) {

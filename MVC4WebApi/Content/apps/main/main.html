@@ -14,10 +14,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="account in accounts" ng-click="updateItem(this)">
+        <tr ng-repeat="account in accounts" ng-click="openAccountDialog(this)">
             <td>{{account.Id}}</td>
             <td>{{account.Version}}</td>
-            <td><editable value="account.AccountCode"/></td>
+            <td>{{account.AccountCode}}</td>
             <td>{{account.Name}}</td>
             <td>{{account.AccountName}}</td>
             <td style="text-align: right">{{account.Balance | number:2}}</td>
@@ -28,12 +28,20 @@
 </table>
 </div>
 
-<script type="text/ng-template" id="accountContent">
-    <div class="modal-header">
+<script type="text/ng-template" id="accountDialog">
+    <div class="modal-header ">
         <h2>{{title}}</h2>
     </div>
     <div class="modal-body">
-        <input type="text" ng-model="account.AccountName" />
+    <table>
+    <tbody>
+        <tr><td>Account Code</td><td><input type="text" ng-model="account.AccountCode" /></td></tr>
+        <tr><td>Account Name</td><td><input type="text" ng-model="account.AccountName" /></td></tr>
+        <tr><td>Balance</td><td><input type="text" ng-model="account.Balance"/></td></tr>
+        <tr><td>Balance Date</td><td><input type="text" ng-model="account.BalanceDate"/></td></tr>
+        <tr><td>Active</td><td><input type="text" ng-model="account.IsActive" /></td></tr>
+    </tbody>
+    </table>
     </div>
     <div class="modal-footer">
         <button class="btn" ng-click="dismiss()">Close</button>

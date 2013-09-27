@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-mainApp.controller('accountItemController',
-    function accountItemController($scope, $modalInstance, account, title) {
+mainApp.controller('accountDialogController',
+    function accountDialogController($scope, $modalInstance, account, title) {
 
         $scope.account = angular.copy(account);
         $scope.title = title;
