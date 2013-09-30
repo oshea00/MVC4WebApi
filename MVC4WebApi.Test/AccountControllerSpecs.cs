@@ -11,16 +11,18 @@ using NSubstitute;
 using NUnit.Framework;
 using System.Web.Http;
 using System.Net.Http;
+using System.Net;
 
 namespace MVC4WebApi.Test
 {
 
     [TestFixture]
-    public class AccountControllerSpecs
+    public class AccountControllerSaveandUpdateGoodPathSpecs
     {
         IAccountRepo accountRepo;
         AccountController controller;
-        MVC4WebApi.Models.Account modelAccount;
+        MVC4WebApi.Models.Account existingModelAccount;
+        MVC4WebApi.Models.Account newModelAccount;
         MVC4WebApi.Domain.Account existingDomainAccount;
         MVC4WebApi.Domain.Account newDomainAccount;
 
@@ -33,13 +35,12 @@ namespace MVC4WebApi.Test
                  new Account { Id = 1},
             });
 
-            modelAccount = new MVC4WebApi.Models.Account { Version = 2.0, Id = 1, AccountCode = "U10101", AccountName = "Updated Account", IsActive = true };
-            existingDomainAccount = modelAccount.AccountMap(version: 2.0);
-            newDomainAccount = new MVC4WebApi.Domain.Account { Id=2, AccountCode = "N101010", Name = "New Account", IsActive = true };
-            accountRepo.Get(1).Returns(existingDomainAccount);
-            accountRepo.Get(2).Returns(newDomainAccount);
-            accountRepo.Add(Arg.Any<MVC4WebApi.Domain.Account>()).Returns(newDomainAccount);
-            accountRepo.Update(existingDomainAccount).Returns(true);
+            existingModelAccount = new MVC4WebApi.Models.Account { Version = 2.0, Id = 1, AccountCode = "U10101", AccountName = "Updated Account", IsActive = true };
+            newModelAccount = new MVC4WebApi.Models.Account { Version = 2.0, Id = 0, AccountCode = "N10101", AccountName = "New Account", IsActive = true };
+
+            accountRepo.Get(1).Returns(existingModelAccount.AccountMap(2.0));
+            accountRepo.Add(Arg.Any<MVC4WebApi.Domain.Account>()).Returns(newModelAccount.AccountMap(2.0));
+            accountRepo.Update(Arg.Any<MVC4WebApi.Domain.Account>()).Returns(true);
 
             controller = new AccountController(accountRepo);
             controller.Request = new HttpRequestMessage(System.Net.Http.HttpMethod.Post, "http://localhost/api/Account");
@@ -63,17 +64,46 @@ namespace MVC4WebApi.Test
         [Test]
         public void savesAnUpdatedAccount()
         {
-            //controller.PutAccount(modelAccount.Id,modelAccount);
-            //accountRepo.Received().Add(Arg.Any<MVC4WebApi.Domain.Account>());
-
+            var response = controller.PostAccount(existingModelAccount);
+            Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
         [Test]
         public void savesAnNewAccount()
         {
-            //var newModelAccount = newDomainAccount.AccountMap(version: 2.0);
-            //controller.PostAccount(newModelAccount);
-            //accountRepo.Received().Add(Arg.Any<MVC4WebApi.Domain.Account>());
+            var response = controller.PostAccount(newModelAccount);
+            Assert.IsTrue(response.IsSuccessStatusCode);
         }
+    }
+
+
+    [TestFixture]
+    public class AccountControllerSaveandUpdateBadPathSpecs
+    {
+        IAccountRepo accountRepo;
+        AccountController controller;
+
+        [SetUp]
+        public void Setup()
+        {
+            accountRepo = Substitute.For<IAccountRepo>();
+
+            accountRepo.Update(Arg.Any<MVC4WebApi.Domain.Account>()).Returns(false);
+
+            controller = new AccountController(accountRepo);
+            controller.Request = new HttpRequestMessage(System.Net.Http.HttpMethod.Post, "http://localhost/api/Account");
+            controller.Configuration = GlobalConfiguration.Configuration;
+            controller.Version = 2.0;
+        }
+
+        [Test]
+        public void UpdatingNonExistentAccountIsAnError()
+        {
+            Assert.Throws<HttpResponseException>(() =>
+            {
+                controller.PostAccount(new MVC4WebApi.Models.Account { Id = 999 });
+            });
+        }
+
     }
 }

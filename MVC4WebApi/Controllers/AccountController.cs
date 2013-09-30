@@ -27,6 +27,14 @@ namespace MVC4WebApi.Controllers
             }
         }
 
+        public IEnumerable<Account> GetPage(int page, int pageSize)
+        {
+            foreach (var acct in _accountRepo.GetPage(page,pageSize))
+            {
+                yield return acct.AccountMap(Version);
+            }
+        }
+
         public Account Get(int id)
         {
             return _accountRepo.Get(id).AccountMap(Version);
@@ -36,7 +44,8 @@ namespace MVC4WebApi.Controllers
         {
             if (account.Id > 0)
             {
-                if (!_accountRepo.Update(account.AccountMap(Version)))
+                var updateOK = _accountRepo.Update(account.AccountMap(Version));
+                if (!updateOK)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
@@ -53,12 +62,7 @@ namespace MVC4WebApi.Controllers
 
         public void Delete(int id)
         {
-            MVC4WebApi.Domain.Account account = _accountRepo.Get(id);
-            if (account == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            _accountRepo.Delete(account.Id);
+            _accountRepo.Delete(id);
         }
     }
 }

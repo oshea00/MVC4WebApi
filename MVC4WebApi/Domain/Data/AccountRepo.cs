@@ -8,6 +8,7 @@ namespace MVC4WebApi.Domain.Data
     public interface IAccountRepo
     {
         IEnumerable<Account> GetAll();
+        IEnumerable<Account> GetPage(int page, int pageSize);
         Account Get(int id);
         Account Add(Account account);
         bool Update(Account account);
@@ -26,7 +27,14 @@ namespace MVC4WebApi.Domain.Data
             _accounts = new List<Account>();
             for (var i = 0; i < 100; i++)
             {
-                var acct = new Account { Id = (i + 1), AccountCode = "A" + String.Format("{0:D4}", i), Name = "Account " + i, IsActive = (i % 10) != 0, Balance = (rand.Next(1,11)*1000.00), BalanceDate = balDate };
+                var acct = new Account { 
+                    Id = (i + 1), 
+                    AccountCode = "A" + String.Format("{0:D4}", i), 
+                    Name = "Account " + i, 
+                    IsActive = (i % 10) != 0, 
+                    Balance = (rand.Next(1,11)*1000.00), 
+                    BalanceDate = balDate 
+                };
                 _accounts.Add(acct);
             }
         }
@@ -36,6 +44,16 @@ namespace MVC4WebApi.Domain.Data
             foreach (var acct in _accounts)
             {
                 yield return acct;
+            }
+        }
+
+        public IEnumerable<Account> GetPage(int page, int pageSize)
+        {
+            var maxIdx = _accounts.Count();
+            for (var i = page * pageSize; i < (page + 1) * pageSize; i++)
+            {
+                if ( i < maxIdx)
+                    yield return _accounts[i];
             }
         }
 

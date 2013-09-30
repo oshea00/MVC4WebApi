@@ -6,6 +6,7 @@ mainApp.controller('MainController',
         accountSvc.getAccounts().then(function (accounts) {
             $scope.accounts = accounts;
         });
+
         $scope.title = 'Accounts';
 
         $scope.openAccountDialog = function (item) {

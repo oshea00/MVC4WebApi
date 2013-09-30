@@ -5,6 +5,7 @@
 
 mainApp.factory('accountSvc', function ($resource, $q) {
     var Account = $resource('/api/Account/:id', { id: '@id' });
+    var AccountTotal = $resource('/api/Account/op/GetAccountTotal');
     return {
         getAccounts: function () {
             var deferred = $q.defer();
@@ -29,6 +30,6 @@ mainApp.factory('accountSvc', function ($resource, $q) {
             function (response) { deferred.reject(response); }
             );
         return deferred.promise;
-    }
-};
+        }
+    };
 });
