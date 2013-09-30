@@ -3,7 +3,7 @@
 mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
         //$scope.accounts = [];
-        accountSvc.getAccounts().then(function (accounts) {
+        accountSvc.getPagedAccounts(0,25).then(function (accounts) {
             $scope.accounts = accounts;
         });
 

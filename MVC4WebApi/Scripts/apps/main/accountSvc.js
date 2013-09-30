@@ -5,11 +5,18 @@
 
 mainApp.factory('accountSvc', function ($resource, $q) {
     var Account = $resource('/api/Account/:id', { id: '@id' });
-    var AccountTotal = $resource('/api/Account/op/GetAccountTotal');
     return {
         getAccounts: function () {
             var deferred = $q.defer();
             Account.query(
+                function (response) { deferred.resolve(response); },
+                function (response) { deferred.reject(response); }
+                );
+            return deferred.promise;
+        },
+        getPagedAccounts: function (p,s) {
+            var deferred = $q.defer();
+            Account.query({ page: p, pageSize: s },
                 function (response) { deferred.resolve(response); },
                 function (response) { deferred.reject(response); }
                 );

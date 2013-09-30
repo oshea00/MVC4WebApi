@@ -27,7 +27,7 @@ namespace MVC4WebApi.Controllers
             }
         }
 
-        public IEnumerable<Account> GetPage(int page, int pageSize)
+        public IEnumerable<Account> Get(int page, int pageSize)
         {
             foreach (var acct in _accountRepo.GetPage(page,pageSize))
             {
