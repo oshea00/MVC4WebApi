@@ -2,12 +2,24 @@
 
 mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
-        //$scope.accounts = [];
-        accountSvc.getPagedAccounts(0,25).then(function (accounts) {
-            $scope.accounts = accounts;
-        });
+        $scope.pageSize = 10;
+        $scope.currentPage = 1;
+
+        $scope.GetPage = function (page) {
+            if (page != null)
+                $scope.currentPage = page;
+            accountSvc.getAccountStats(true).then(function (stats) {
+                $scope.totalItems = stats[0].Count;
+                $scope.totalBalance = stats[0].TotalBalance;
+                accountSvc.getPagedAccounts($scope.currentPage - 1,
+                                            $scope.pageSize).then(function (accounts) {
+                    $scope.accounts = accounts;
+                });
+            });
+        }
 
         $scope.title = 'Accounts';
+        $scope.GetPage();
 
         $scope.openAccountDialog = function (item) {
             var accountDialog = $modal.open({

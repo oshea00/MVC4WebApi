@@ -14,6 +14,15 @@ mainApp.factory('accountSvc', function ($resource, $q) {
                 );
             return deferred.promise;
         },
+        getAccountStats: function () {
+            var deferred = $q.defer();
+            Account.query(
+                { stats: true },
+                function (response) { deferred.resolve(response); },
+                function (response) { deferred.reject(response); }
+                );
+            return deferred.promise;
+        },
         getPagedAccounts: function (p,s) {
             var deferred = $q.defer();
             Account.query({ page: p, pageSize: s },

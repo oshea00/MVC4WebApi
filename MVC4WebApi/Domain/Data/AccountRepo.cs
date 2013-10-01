@@ -10,6 +10,7 @@ namespace MVC4WebApi.Domain.Data
         IEnumerable<Account> GetAll();
         IEnumerable<Account> GetPage(int page, int pageSize);
         Account Get(int id);
+        int Count();
         Account Add(Account account);
         bool Update(Account account);
         void Delete(int id);
@@ -37,6 +38,11 @@ namespace MVC4WebApi.Domain.Data
                 };
                 _accounts.Add(acct);
             }
+        }
+
+        public int Count()
+        {
+            return _accounts.Count();
         }
 
         public IEnumerable<Account> GetAll()

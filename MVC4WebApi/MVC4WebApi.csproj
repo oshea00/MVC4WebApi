@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="Hubs\NotifyHub.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountStats.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

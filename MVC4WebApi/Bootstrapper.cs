@@ -20,7 +20,7 @@ namespace MVC4WebApi
         {
             var container = new UnityContainer();
 
-            container.RegisterType<IAccountRepo, AccountRepo>();
+            container.RegisterType<IAccountRepo, AccountRepo>(new ContainerControlledLifetimeManager());
 
             return container;
         }
