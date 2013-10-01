@@ -4,6 +4,7 @@ mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
         $scope.pageSize = 10;
         $scope.currentPage = 1;
+        $scope.maxSize = 10;
 
         $scope.getPage = function (page) {
             if (page != null)
