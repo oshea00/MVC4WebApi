@@ -20,13 +20,13 @@
             <td>{{account.AccountCode}}</td>
             <td>{{account.AccountName}}</td>
             <td style="text-align: right">{{account.Balance | number:2}}</td>
-            <td>{{account.BalanceDate | date:'MM/dd/yy'}}</td>
+            <td>{{account.BalanceDate | date:'MM/dd/yyyy'}}</td>
             <td><input type="checkbox" ng-model="account.IsActive" disabled /></td>
         </tr>
     </tbody>
 </table>
 </div>
-<pagination total-items="totalItems" page="currentPage" items-per-page="pageSize" on-select-page="GetPage()"></pagination>
+<pagination total-items="totalItems" page="currentPage" items-per-page="pageSize" on-select-page="getPage()"></pagination>
 <script type="text/ng-template" id="confirmDialog">
     <div class="modal-header">
         <h2>Confirmation</h2>

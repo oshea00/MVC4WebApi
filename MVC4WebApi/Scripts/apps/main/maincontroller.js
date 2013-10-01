@@ -5,7 +5,7 @@ mainApp.controller('MainController',
         $scope.pageSize = 10;
         $scope.currentPage = 1;
 
-        $scope.GetPage = function (page) {
+        $scope.getPage = function (page) {
             if (page != null)
                 $scope.currentPage = page;
             accountSvc.getAccountStats(true).then(function (stats) {
@@ -19,7 +19,7 @@ mainApp.controller('MainController',
         }
 
         $scope.title = 'Accounts';
-        $scope.GetPage();
+        $scope.getPage();
 
         $scope.openAccountDialog = function (item) {
             var accountDialog = $modal.open({
