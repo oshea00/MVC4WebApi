@@ -29,7 +29,7 @@ namespace MVC4WebApi.Test
             try {
                 var response = controller.ExecuteAsync(context, new CancellationToken());
             }
-            catch (Exception ex) { }
+            catch { }
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace MVC4WebApi.Test
             {
                 var response = controller.ExecuteAsync(context, new CancellationToken());
             }
-            catch (Exception ex) { }
+            catch { }
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace MVC4WebApi.Test
             {
                 var response = controller.ExecuteAsync(context, new CancellationToken());
             }
-            catch (Exception ex) { }
+            catch { }
         }
 
         [Test]

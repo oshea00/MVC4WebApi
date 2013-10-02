@@ -2,24 +2,29 @@
 
 mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
+
         $scope.pageSize = 10;
         $scope.currentPage = 1;
         $scope.maxSize = 10;
+        $scope.title = 'Accounts';
+
+        $scope.accountPagedCallback = function(accounts) {
+            $scope.accounts = accounts;
+        }
+
+        $scope.statsCallback = function (stats) {
+            $scope.totalItems = stats[0].Count;
+            $scope.totalBalance = stats[0].TotalBalance;
+            accountSvc.getPagedAccounts($scope.currentPage - 1, $scope.pageSize)
+                .then($scope.accountPagedCallback);
+        }
 
         $scope.getPage = function (page) {
             if (page != null)
                 $scope.currentPage = page;
-            accountSvc.getAccountStats(true).then(function (stats) {
-                $scope.totalItems = stats[0].Count;
-                $scope.totalBalance = stats[0].TotalBalance;
-                accountSvc.getPagedAccounts($scope.currentPage - 1,
-                                            $scope.pageSize).then(function (accounts) {
-                    $scope.accounts = accounts;
-                });
-            });
+            accountSvc.getAccountStats(true)
+                .then($scope.statsCallback);
         }
-
-        $scope.title = 'Accounts';
         $scope.getPage();
 
         $scope.openAccountDialog = function (item) {

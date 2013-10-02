@@ -19,50 +19,48 @@ namespace MVC4WebApi.Controllers
             _accountRepo = accountRepo;
         }
 
-        public IEnumerable<Account> Get()
+        public IEnumerable<AccountModel> Get()
         {
             foreach (var acct in _accountRepo.GetAll())
             {
-                yield return acct.AccountMap(Version);
+                yield return acct.MapModel(Version,Request);
             }
         }
 
-        public IEnumerable<AccountStats> GetStats(bool stats)
+        public IEnumerable<AccountStatsModel> GetStats(bool stats)
         {
 
-            return new List<AccountStats> { new AccountStats { Version = 2.0, Count = _accountRepo.Count(), TotalBalance = 0.0 }, } ;
+            return new List<AccountStatsModel> { new AccountStatsModel { Version = 2.0, Count = _accountRepo.Count(), TotalBalance = 0.0 }, } ;
         }
 
-        public IEnumerable<Account> Get(int page, int pageSize)
+        public IEnumerable<AccountModel> Get(int page, int pageSize)
         {
             foreach (var acct in _accountRepo.GetPage(page,pageSize))
             {
-                yield return acct.AccountMap(Version);
+                yield return acct.MapModel(Version,Request);
             }
         }
 
-        public Account Get(int id)
+        public AccountModel Get(int id)
         {
-            return _accountRepo.Get(id).AccountMap(Version);
+            return _accountRepo.Get(id).MapModel(Version, Request);
         }
 
-        public HttpResponseMessage PostAccount(Account account)
+        public HttpResponseMessage PostAccount(AccountModel accountModel)
         {
-            if (account.Id > 0)
+            if (accountModel.Id > 0)
             {
-                var updateOK = _accountRepo.Update(account.AccountMap(Version));
-                if (!updateOK)
+                if (!_accountRepo.Update(accountModel.MapDomain()))
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
-                return Request.CreateResponse<Account>(HttpStatusCode.OK,account);
+                return Request.CreateResponse<AccountModel>(HttpStatusCode.OK,accountModel);
             }
             else
             {
-                var domainAccount = account.AccountMap(Version);
-                var newDomainAccount = _accountRepo.Add(domainAccount);
-                var newAccount = newDomainAccount.AccountMap(Version);
-                return Request.CreateResponse<Account>(HttpStatusCode.Created, newAccount);
+                var newAccount = _accountRepo.Add(accountModel.MapDomain());
+                var newAccountModel = newAccount.MapModel(Version,Request);
+                return Request.CreateResponse<AccountModel>(HttpStatusCode.Created, newAccountModel);
             }
         }
 

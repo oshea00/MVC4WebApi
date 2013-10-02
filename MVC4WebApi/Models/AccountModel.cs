@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MVC4WebApi.Models
 {
-    public class Account : ModelBase
+    public class AccountModel : ModelBase
     {
         public int Id { get; set; }
         public string AccountCode { get; set; }

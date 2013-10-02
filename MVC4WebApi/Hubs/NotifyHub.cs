@@ -9,7 +9,7 @@ namespace MVC4WebApi.Hubs
 {
     public class NotifyHub : Hub
     {
-        public void AddAccount(Account account)
+        public void AddAccount(AccountModel account)
         {
             Clients.All.AccountAdded();
         }

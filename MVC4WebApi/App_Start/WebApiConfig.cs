@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
+using MVC4WebApi.Controllers;
 using MVC4WebApi.Extensions;
 
 namespace MVC4WebApi
@@ -11,9 +13,9 @@ namespace MVC4WebApi
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "Account",
+                routeTemplate: "api/Account/{id}",
+                defaults: new { controller = "Account", id = RouteParameter.Optional }
             );
 
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
@@ -25,6 +27,9 @@ namespace MVC4WebApi
             // For more information, refer to: http://www.asp.net/web-api
             config.EnableSystemDiagnosticsTracing();
             config.MapHttpAttributeRoutes();
+
+            // Use our own controller selector
+            config.Services.Replace(typeof(IHttpControllerSelector), new CustomControllerSelector(config));
         }
     }
 }
