@@ -286,7 +286,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\apps\main\accountDialogController.js" />
-    <Content Include="Scripts\apps\main\confirmDialogController.js" />
+    <Content Include="Scripts\apps\main\deleteDialogController.js" />
     <Content Include="Scripts\apps\main\main.js" />
     <Content Include="Scripts\apps\main\maincontroller.js" />
     <Content Include="Scripts\apps\main\accountSvc.js" />

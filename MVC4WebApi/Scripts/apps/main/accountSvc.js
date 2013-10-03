@@ -33,7 +33,8 @@ mainApp.factory('accountSvc', function ($resource, $q) {
         },
         saveAccount: function (account) {
             var deferred = $q.defer();
-            account.$save(
+            Account.save(
+                account,
                 function (response) { deferred.resolve(response); },
                 function (response) { deferred.reject(response); }
                 );

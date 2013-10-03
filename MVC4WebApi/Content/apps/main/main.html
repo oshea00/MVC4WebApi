@@ -14,8 +14,8 @@
     </thead>
     <tbody>
         <tr ng-repeat="account in accounts">
-            <td><i class="icon-edit" ng-click="openAccountDialog(this)" tooltip="Edit" tooltip-popup-delay="1000"/>
-                <i class="icon-remove" ng-click="openConfirmDialog(this)" tooltip="Delete" tooltip-popup-delay="1000"/></td>
+            <td><i class="icon-edit" ng-click="updateAccountDialog(this)" tooltip="Edit" tooltip-popup-delay="1000"/>
+                <i class="icon-remove" ng-click="deleteDialog(this)" tooltip="Delete" tooltip-popup-delay="1000"/></td>
             <td>{{account.Version}}</td>
             <td>{{account.AccountCode}}</td>
             <td>{{account.AccountName}}</td>
@@ -28,7 +28,10 @@
 </div>
 <pagination total-items="totalItems" max-size="maxSize" page="currentPage" 
             items-per-page="pageSize" boundary-links="true" on-select-page="getPage()"></pagination>
-<script type="text/ng-template" id="confirmDialog">
+<button class="btn btn-primary" ng-click="addAccountDialog()">Add Account</button>
+
+<!-- Dialog Templates -->
+<script type="text/ng-template" id="deleteDialog">
     <div class="modal-header">
         <h2>Confirmation</h2>
     </div>

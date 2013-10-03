@@ -3,7 +3,7 @@
 mainApp.controller('accountDialogController',
     function accountDialogController($scope, $modalInstance, account, title) {
 
-        $scope.account = angular.copy(account);
+        $scope.account = account;
         $scope.title = title;
 
         $scope.dismiss = function () {

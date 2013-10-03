@@ -55,7 +55,7 @@ namespace MVC4WebApi.Extensions
                 Version = version,
                 Url = url,
                 Id = acct.Id,
-                AccountCode = "V2" + acct.AccountCode,
+                AccountCode = acct.AccountCode,
                 Name = null,
                 IsActive = acct.IsActive,
                 AccountName = acct.Name,

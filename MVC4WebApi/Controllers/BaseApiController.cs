@@ -19,7 +19,7 @@ namespace MVC4WebApi.Controllers
              if (versionHeader.Value != null)
              {
                  double version;
-                 if (double.TryParse(versionHeader.Value.ToList()[0],out version))
+                 if (double.TryParse(versionHeader.Value.First(),out version))
                  {
                      Version = version;
                  }

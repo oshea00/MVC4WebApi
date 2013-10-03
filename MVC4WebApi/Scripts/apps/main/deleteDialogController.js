@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-mainApp.controller('confirmDialogController',
-    function confirmDialogController($scope, $modalInstance, account) {
+mainApp.controller('deleteDialogController',
+    function deleteDialogController($scope, $modalInstance, account) {
 
         $scope.account = angular.copy(account);
 

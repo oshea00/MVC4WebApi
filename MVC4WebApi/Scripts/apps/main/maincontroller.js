@@ -27,8 +27,35 @@ mainApp.controller('MainController',
         }
         $scope.getPage();
 
-        $scope.openAccountDialog = function (item) {
-            var accountDialog = $modal.open({
+        $scope.addAccountDialog = function () {
+            var add = $modal.open({
+                templateUrl: 'accountDialog',
+                controller: 'accountDialogController',
+                backdrop: false,
+                resolve: {
+                    account: function () {
+                        return { Id: 0, AccountCode: '', Name: null, AccountName: '', Balance: 0, BalanceDate: null, IsActive: true, Version: 2.0 };
+                    },
+                    title: function () {
+                        return 'Add Account';
+                    }
+                }
+            });
+            add.result.then(
+                function (account) {
+                    var promise = accountSvc.saveAccount(account);
+                    promise.then(function (item) {
+                        $scope.accounts.push(item);
+                    });
+                },
+                function (cancelvalue) {
+                    var val = cancelvalue;
+                }
+            );
+        }
+
+        $scope.updateAccountDialog = function (item) {
+            var update = $modal.open({
                 templateUrl: 'accountDialog',
                 controller: 'accountDialogController',
                 backdrop: false,
@@ -41,8 +68,7 @@ mainApp.controller('MainController',
                     }
                 }
             });
-
-            accountDialog.result.then(
+            update.result.then(
                 function (account) {
                     var promise = accountSvc.saveAccount(account);
                     promise.then(function (response) {
@@ -53,13 +79,12 @@ mainApp.controller('MainController',
                     var val = cancelvalue;
                 }
             );
+        }
 
-        };
-
-        $scope.openConfirmDialog = function (item) {
-            var confirmDialog = $modal.open({
-                templateUrl: 'confirmDialog',
-                controller: 'confirmDialogController',
+        $scope.deleteDialog = function (item) {
+            var confirm = $modal.open({
+                templateUrl: 'deleteDialog',
+                controller: 'deleteDialogController',
                 backdrop: false,
                 resolve: {
                     account: function () {
@@ -67,8 +92,7 @@ mainApp.controller('MainController',
                     }
                 }
             });
-
-            confirmDialog.result.then(
+            confirm.result.then(
                 function (account) {
                     var promise = accountSvc.deleteAccount(account);
                     promise.then(function (response) {
@@ -80,7 +104,7 @@ mainApp.controller('MainController',
                     var val = cancelvalue;
                 }
             );
-        };
+        }
 
     });
 
