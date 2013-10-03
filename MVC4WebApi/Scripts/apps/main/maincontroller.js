@@ -44,7 +44,7 @@ mainApp.controller('MainController',
             add.result.then(
                 function (account) {
                     var promise = accountSvc.saveAccount(account);
-                    promise.then(function (item) {
+                    promise.then(function (item) {                       
                         $scope.accounts.push(item);
                     });
                 },
@@ -72,6 +72,7 @@ mainApp.controller('MainController',
                 function (account) {
                     var promise = accountSvc.saveAccount(account);
                     promise.then(function (response) {
+                        // Copy updated account values to item.account
                         angular.copy(account, item.account);
                     });
                 },
