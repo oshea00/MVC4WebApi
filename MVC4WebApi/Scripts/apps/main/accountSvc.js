@@ -23,9 +23,9 @@ mainApp.factory('accountSvc', function ($resource, $q) {
                 );
             return deferred.promise;
         },
-        getPagedAccounts: function (p,s) {
+        getPagedAccounts: function (p,s,o) {
             var deferred = $q.defer();
-            Account.query({ page: p, pageSize: s },
+            Account.query({ page: p, pageSize: s, orderBy: o },
                 function (response) { deferred.resolve(response); },
                 function (response) { deferred.reject(response); }
                 );

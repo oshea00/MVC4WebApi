@@ -77,6 +77,69 @@ namespace MVC4WebApi.Test
 
 
     [TestFixture]
+    public class AccountControllerPagingAndSorting
+    {
+        IAccountRepo accountRepo;
+        AccountController controller;
+
+        [SetUp]
+        public void Setup()
+        {
+            accountRepo = Substitute.For<IAccountRepo>();
+
+            accountRepo.GetAll().Returns(new List<Account> { 
+               new Account { Id = 1, AccountCode = "A9", Name = "A", Balance = 10000.00, BalanceDate = new DateTime(2013,09,1), IsActive = true },
+               new Account { Id = 2, AccountCode = "A8", Name = "B", Balance = 1000.00, BalanceDate = new DateTime(2013,09,2), IsActive = true },
+               new Account { Id = 3, AccountCode = "A7", Name = "C", Balance = 100.00, BalanceDate = new DateTime(2013,09,3), IsActive = true },
+               new Account { Id = 4, AccountCode = "A6", Name = "D", Balance = 10.00, BalanceDate = new DateTime(2013,09,4), IsActive = true },
+               new Account { Id = 5, AccountCode = "A5", Name = "E", Balance = 1.00, BalanceDate = new DateTime(2013,09,5), IsActive = true },
+               });
+
+            controller = new AccountController(accountRepo);
+            controller.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/Account");
+            controller.Configuration = GlobalConfiguration.Configuration;
+            controller.Version = 2.0;
+        }
+
+        [Test]
+        public void returnsOrderedByAccountCode()
+        {
+            var accountModel = controller.GetOrderBy(0,5,"AccountCode").First();
+            Assert.AreEqual("A5",accountModel.AccountCode);
+            accountModel = controller.GetOrderBy(0, 5, "-AccountCode").First();
+            Assert.AreEqual("A9", accountModel.AccountCode);
+        }
+
+        [Test]
+        public void returnsOrderedByAccountName()
+        {
+            var accountModel = controller.GetOrderBy(0, 5, "AccountName").First();
+            Assert.AreEqual("A", accountModel.AccountName);
+            accountModel = controller.GetOrderBy(0, 5, "-AccountName").First();
+            Assert.AreEqual("E", accountModel.AccountName);
+        }
+
+        [Test]
+        public void returnsOrderedByBalance()
+        {
+            var accountModel = controller.GetOrderBy(0, 5, "Balance").First();
+            Assert.AreEqual(1.0, accountModel.Balance);
+            accountModel = controller.GetOrderBy(0, 5, "-Balance").First();
+            Assert.AreEqual(10000.0, accountModel.Balance);
+        }
+
+        [Test]
+        public void returnsOrderedByBalanceDate()
+        {
+            var accountModel = controller.GetOrderBy(0, 5, "BalanceDate").First();
+            Assert.AreEqual(1, accountModel.BalanceDate.Day);
+            accountModel = controller.GetOrderBy(0, 5, "-BalanceDate").First();
+            Assert.AreEqual(5, accountModel.BalanceDate.Day);
+        }
+
+    }
+
+    [TestFixture]
     public class AccountControllerSaveandUpdateBadPathSpecs
     {
         IAccountRepo accountRepo;

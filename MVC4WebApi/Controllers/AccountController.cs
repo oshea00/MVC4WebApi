@@ -45,6 +45,32 @@ namespace MVC4WebApi.Controllers
             }
         }
 
+        public IEnumerable<AccountModel> GetOrderBy(int page, int pageSize, string orderBy)
+        {
+            IList<AccountModel> all = null;
+            try
+            {
+                if (orderBy.First() == '-')
+                {
+                    all = Get().OrderByDescending(p => p.GetType().GetProperty(orderBy.Substring(1)).GetValue(p, null)).ToList();
+                }
+                else
+                {
+                    all = Get().OrderBy(p => p.GetType().GetProperty(orderBy).GetValue(p, null)).ToList();
+                }
+            }
+            catch
+            {
+                all = new List<AccountModel>();
+            }
+            var maxIdx = all.Count();
+            for (var i = page * pageSize; i < (page + 1) * pageSize; i++)
+            {
+                if (i < maxIdx)
+                    yield return all[i];
+            }
+        }
+
         public AccountModel Get(int id)
         {
             return _accountRepo.Get(id).MapModel(Version, Request);

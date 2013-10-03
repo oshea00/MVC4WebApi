@@ -44,7 +44,7 @@ describe('MainController Spec', function () {
         scope.accountPagedCallback(accts);
 
         expect(scope.pageTotal).toBe(10.00);
-//        expect(scope.pageTotal).toBe(10.00);
+        expect(scope.accounts.length).toBe(1);
 
     });
 

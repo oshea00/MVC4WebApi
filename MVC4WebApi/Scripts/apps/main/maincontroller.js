@@ -10,6 +10,8 @@ mainApp.controller('MainController',
         $scope.pageTotal = 0.0;
         $scope.totalItems = 0;
         $scope.totalBalance = 0.0;
+        $scope.orderByColumn = 'AccountCode';
+        $scope.reverse = false;
 
         $scope.accountPagedCallback = function(accounts) {
             $scope.accounts = accounts;
@@ -22,8 +24,20 @@ mainApp.controller('MainController',
         $scope.statsCallback = function (stats) {
             $scope.totalItems = stats[0].Count;
             $scope.totalBalance = stats[0].TotalBalance;
-            accountSvc.getPagedAccounts($scope.currentPage - 1, $scope.pageSize)
+            accountSvc.getPagedAccounts($scope.currentPage - 1, $scope.pageSize, $scope.orderByColumn)
                 .then($scope.accountPagedCallback);
+        }
+
+        $scope.orderBy = function (colname) {
+            $scope.reverse = !$scope.reverse;
+            if ($scope.reverse) {
+                $scope.orderByColumn = '-' + colname;
+                $scope.getPage();
+            }
+            else {
+                $scope.orderByColumn = colname;
+                $scope.getPage();
+            }
         }
 
         $scope.getPage = function (page) {
