@@ -24,6 +24,10 @@
             <td><input type="checkbox" ng-model="account.IsActive" disabled /></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr><td colspan="3"></td><td style="text-align: right">Sub-Total</td><td style="text-align: right">{{pageTotal | number:2}}</td><td colspan="2"></td></tr>
+        <tr><td colspan="3"></td><td style="text-align: right">Total</td><td style="text-align: right">{{totalBalance | number:2}}</td><td colspan="2"></td></tr>
+    </tfoot>
 </table>
 </div>
 <pagination total-items="totalItems" max-size="maxSize" page="currentPage" 

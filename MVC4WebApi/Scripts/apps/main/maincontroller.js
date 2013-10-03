@@ -7,9 +7,16 @@ mainApp.controller('MainController',
         $scope.currentPage = 1;
         $scope.maxSize = 10;
         $scope.title = 'Accounts';
+        $scope.pageTotal = 0.0;
+        $scope.totalItems = 0;
+        $scope.totalBalance = 0.0;
 
         $scope.accountPagedCallback = function(accounts) {
             $scope.accounts = accounts;
+            $scope.pageTotal = 0.0;
+            _.each(accounts, function (a) {
+                $scope.pageTotal += a.Balance;
+            });
         }
 
         $scope.statsCallback = function (stats) {

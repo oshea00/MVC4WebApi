@@ -20,6 +20,7 @@ module.exports = function(config) {
         'MVC4WebApi/Scripts/angular.js',
         'MVC4WebApi/Scripts/angular-resource.js',
         'MVC4WebApi/Scripts/angular-mocks.js',
+        'MVC4WebApi/Scripts/underscore.js',
         'MVC4WebApi/Scripts/sinon-1.7.3.js',
         'MVC4WebApi/Scripts/ui-bootstrap-0.6.0.js',
         //'MVC4WebApi/Scripts/ui-bootstrap-0.5.0.js',

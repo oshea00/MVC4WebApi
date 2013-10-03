@@ -29,8 +29,12 @@ namespace MVC4WebApi.Controllers
 
         public IEnumerable<AccountStatsModel> GetStats(bool stats)
         {
-
-            return new List<AccountStatsModel> { new AccountStatsModel { Version = 2.0, Count = _accountRepo.Count(), TotalBalance = 0.0 }, } ;
+            double bal=0;
+            foreach (var acct in _accountRepo.GetAll())
+            {
+                bal += acct.Balance;
+            }
+            return new List<AccountStatsModel> { new AccountStatsModel { Version = 2.0, Count = _accountRepo.Count(), TotalBalance = bal }, } ;
         }
 
         public IEnumerable<AccountModel> Get(int page, int pageSize)
