@@ -1,10 +1,13 @@
-﻿<div>
-<h2>{{title}}</h2>
-<div class="pull-right">
+﻿<div class="container">
+<div class="row" style="padding: 20px 0px 0px 0px;">
+    <div class="span4">
+        <h3 style="margin: 0px;">{{title}}</h3>
+    </div>
+    <div class="span4 offset4">
     <i class="icon-search" ng-click="searchFor()" tooltip="Search" tooltip-popup-delay="500"/> 
     <input type="text" ng-model="searchText" ng-enter="searchFor()" placeholder="Search Text"/>
+    </div>
 </div>
-
 <table class="table table-hover">
     <thead>
         <tr>
@@ -34,10 +37,10 @@
         <tr><td colspan="3"></td><td style="text-align: right">Total</td><td style="text-align: right">{{totalBalance | number:2}}</td><td colspan="2"></td></tr>
     </tfoot>
 </table>
-</div>
-<pagination total-items="totalItems" max-size="maxSize" page="currentPage" 
+<pagination  style="margin: 0px;" total-items="totalItems" max-size="maxSize" page="currentPage" 
             items-per-page="pageSize" boundary-links="true" on-select-page="getPage()"></pagination>
-<button type="button" class="btn btn-primary" ng-click="addAccountDialog()">Add Account</button>
+<buttontype="button" class="btn btn-primary" ng-click="addAccountDialog()">Add Account</button>
+</div>
 
 <!-- Dialog Templates -->
 <script type="text/ng-template" id="deleteDialog">
