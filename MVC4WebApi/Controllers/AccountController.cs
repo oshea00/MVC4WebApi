@@ -63,12 +63,7 @@ namespace MVC4WebApi.Controllers
             {
                 all = new List<AccountModel>();
             }
-            var maxIdx = all.Count();
-            for (var i = page * pageSize; i < (page + 1) * pageSize; i++)
-            {
-                if (i < maxIdx)
-                    yield return all[i];
-            }
+            return all.Skip(page * pageSize).Take(pageSize);
         }
 
         public AccountModel Get(int id)
@@ -97,6 +92,27 @@ namespace MVC4WebApi.Controllers
         public void Delete(int id)
         {
             _accountRepo.Delete(id);
+        }
+
+        public IEnumerable<AccountModel> GetBySearch(string search)
+        {
+            if (search == null)
+                yield break;
+
+            var s = search.ToLower();
+            var all = _accountRepo.GetAll();
+            
+            foreach (var am in all.Where(a =>
+                a.AccountCode.ToLower().Contains(s) ||
+                a.Name.ToLower().Contains(s) ||
+                a.IsActive.ToString().ToLower().Contains(s) ||
+                a.Balance.ToString("f2").ToLower().Contains(s) ||
+                a.BalanceDate.ToString("M/d/yyyy").Contains(s) ||
+                a.BalanceDate.ToString("MM/dd/yyyy").Contains(s)
+                ).ToList())
+                {
+                    yield return am.MapModel(Version, Request);                
+                }
         }
     }
 }

@@ -55,12 +55,7 @@ namespace MVC4WebApi.Domain.Data
 
         public IEnumerable<Account> GetPage(int page, int pageSize)
         {
-            var maxIdx = _accounts.Count();
-            for (var i = page * pageSize; i < (page + 1) * pageSize; i++)
-            {
-                if ( i < maxIdx)
-                    yield return _accounts[i];
-            }
+            return _accounts.Skip(page * pageSize).Take(page);
         }
 
         public Account Get(int id)

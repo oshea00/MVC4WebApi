@@ -31,6 +31,14 @@ mainApp.factory('accountSvc', function ($resource, $q) {
                 );
             return deferred.promise;
         },
+        getBySearch: function (srch) {
+            var deferred = $q.defer();
+            Account.query({ search: srch },
+                function (response) { deferred.resolve(response); },
+                function (response) { deferred.reject(response); }
+                );
+            return deferred.promise;
+        },
         saveAccount: function (account) {
             var deferred = $q.defer();
             Account.save(

@@ -2,7 +2,6 @@
 
 mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
-
         $scope.pageSize = 10;
         $scope.currentPage = 1;
         $scope.maxSize = 10;
@@ -28,6 +27,20 @@ mainApp.controller('MainController',
                 .then($scope.accountPagedCallback);
         }
 
+        $scope.searchCallback = function (matches) {
+            $scope.accounts = matches;
+            $scope.totalItems = $scope.accounts.length;
+            $scope.pageTotal = 0.0;
+            $scope.totalBalance = 0.0;
+            _.each($scope.accounts, function (a) {
+                $scope.totalBalance += a.Balance;
+            });
+            if ($scope.totalItems === 0) {
+                $scope.searchText = "" // indicate none found more explicitly later 
+                $scope.getPage();
+            }
+        }
+
         $scope.orderBy = function (colname) {
             $scope.reverse = !$scope.reverse;
             if ($scope.reverse) {
@@ -38,6 +51,13 @@ mainApp.controller('MainController',
                 $scope.orderByColumn = colname;
                 $scope.getPage();
             }
+        }
+
+        $scope.searchFor = function () {
+            accountSvc.getBySearch($scope.searchText)
+                .then(function (results) {
+                    $scope.searchCallback(results);
+                });
         }
 
         $scope.getPage = function (page) {
