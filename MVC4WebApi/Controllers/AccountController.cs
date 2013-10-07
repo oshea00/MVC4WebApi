@@ -13,8 +13,9 @@ namespace MVC4WebApi.Controllers
 #if !DEBUG
     [Authorize]
     [ApiRequireHttps] // also see App_Start/WebApiConfig.cs
+    [ApiAuthorize] // our WebApi basic authentication filter
 #else
-    //[ApiRequireHttps]
+    //[ApiAuthorize]
 #endif
     public class AccountController : BaseApiController
     {
