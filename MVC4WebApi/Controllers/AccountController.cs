@@ -15,8 +15,8 @@ namespace MVC4WebApi.Controllers
     [ApiRequireHttps] // also see App_Start/WebApiConfig.cs
     [ApiAuthorize] // our WebApi basic authentication filter
 #else
-    //[ApiAuthorize]  - user version of code
-    //[ApiAuthorize(false)] - token version of code
+    //[ApiAuthorize]  - user version of code (has authorize header) plus api token check
+    //[ApiAuthorize(false)] - token api check only - no user uthorization header needed
 #endif
     public class AccountController : BaseApiController
     {
