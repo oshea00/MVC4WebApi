@@ -13,10 +13,13 @@ namespace MVC4WebApi.Controllers
     public class AccountController : BaseApiController
     {
         IAccountRepo _accountRepo;
+        private IUserProvider _userprovider;
 
-        public AccountController(IAccountRepo accountRepo)
+        public AccountController(IAccountRepo accountRepo, 
+                                 IUserProvider userprovider)
         {
             _accountRepo = accountRepo;
+            _userprovider = userprovider;
         }
 
         public IEnumerable<AccountModel> Get()

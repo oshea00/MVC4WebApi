@@ -4,7 +4,7 @@ mainApp.controller('MainController',
     function MainController($scope, $modal, accountSvc) {
         $scope.pageSize = 10;
         $scope.currentPage = 1;
-        $scope.maxSize = 10;
+        $scope.maxPages = 10;
         $scope.title = 'Accounts';
         $scope.pageTotal = 0.0;
         $scope.totalItems = 0;

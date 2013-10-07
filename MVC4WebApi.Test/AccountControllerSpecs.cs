@@ -41,7 +41,7 @@ namespace MVC4WebApi.Test
             accountRepo.Add(Arg.Any<Account>()).Returns(newModelAccount.MapDomain());
             accountRepo.Update(Arg.Any<Account>()).Returns(true);
 
-            controller = new AccountController(accountRepo);
+            controller = new AccountController(accountRepo,null);
             controller.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/Account");
             controller.Configuration = GlobalConfiguration.Configuration;
             controller.Version = 2.0;
@@ -95,7 +95,7 @@ namespace MVC4WebApi.Test
                new Account { Id = 5, AccountCode = "A5", Name = "E", Balance = 1.00, BalanceDate = new DateTime(2013,09,5), IsActive = false },
                });
 
-            controller = new AccountController(accountRepo);
+            controller = new AccountController(accountRepo,null);
             controller.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/Account");
             controller.Configuration = GlobalConfiguration.Configuration;
             controller.Version = 2.0;
@@ -190,7 +190,7 @@ namespace MVC4WebApi.Test
 
             accountRepo.Update(Arg.Any<Account>()).Returns(false);
 
-            controller = new AccountController(accountRepo);
+            controller = new AccountController(accountRepo,null);
             controller.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/Account");
             controller.Configuration = GlobalConfiguration.Configuration;
             controller.Version = 2.0;

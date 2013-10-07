@@ -37,7 +37,7 @@
         <tr><td colspan="3"></td><td style="text-align: right">Total</td><td style="text-align: right">{{totalBalance | number:2}}</td><td colspan="2"></td></tr>
     </tfoot>
 </table>
-<pagination  style="margin: 0px;" total-items="totalItems" max-size="maxSize" page="currentPage" 
+<pagination  style="margin: 0px;" total-items="totalItems" max-size="maxPages" page="currentPage" 
             items-per-page="pageSize" boundary-links="true" on-select-page="getPage()"></pagination>
 <buttontype="button" class="btn btn-primary" ng-click="addAccountDialog()">Add Account</button>
 </div>
