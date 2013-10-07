@@ -10,6 +10,12 @@ using MVC4WebApi.Models;
 
 namespace MVC4WebApi.Controllers
 {
+#if !DEBUG
+    [Authorize]
+    [ApiRequireHttps] // also see App_Start/WebApiConfig.cs
+#else
+    //[ApiRequireHttps]
+#endif
     public class AccountController : BaseApiController
     {
         IAccountRepo _accountRepo;

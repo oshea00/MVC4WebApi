@@ -42,6 +42,11 @@ namespace MVC4WebApi
             
             // WebApi2 CORs
             // config.EnablCORS
+
+            // Add in our require https filter for WebApi so it applies to all Api controllers
+#if !DEBUG
+            config.Filters.Add(new ApiRequireHttpsAttribute());
+#endif
         }
     }
 }

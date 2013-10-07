@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MVC4WebApi.Controllers
 {
@@ -16,7 +17,11 @@ namespace MVC4WebApi.Controllers
         {
             get
             {
+#if !DEBUG
+                return Thread.CurrentPrincipal.Identity.Name;
+#else
                 return "mikeo";
+#endif
             }
         }
     }
