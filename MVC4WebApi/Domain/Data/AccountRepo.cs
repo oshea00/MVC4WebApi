@@ -19,8 +19,8 @@ namespace MVC4WebApi.Domain.Data
     public class AccountRepo : IAccountRepo
     {
         List<Account> _accounts;
-        string[] _name1 = new[] {"Bank of America","Bank of Hong Kong","AIG","State Street","BONY","US Bank","Mellon Bank"};
-        string[] _name2 = new[] {"Liability","Equity","Asset","Clearing","Holding","Escrow","Receivable","Payable"};
+        string[] _name1 = new[] {"Amazon","Apple","Google","Twitter","Life Invader","Bank of America","Bank of Hong Kong","AIG","State Street","BONY","US Bank","Mellon Bank","Barnes and Noble","Fred Meyer","Boeing","IBM","Trader Joes","NASA","Billing"};
+        string[] _name2 = new[] {"Liability","Equity","Asset","Clearing","Holding","Escrow","Receivable","Payable","Trading","Discretionary","Client","Taxes Due","Fee Simple"};
         
         public AccountRepo()
         {
