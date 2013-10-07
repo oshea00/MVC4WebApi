@@ -26,6 +26,15 @@ namespace MVC4WebApi.Extensions
             return url;
         }
 
+        public static AuthTokenModel MapModel(this AuthToken auth)
+        {
+            return new AuthTokenModel
+            {
+                Expiration = auth.Expiration,
+                Token = auth.Token
+            };
+        }
+
         public static AccountModel MapModel(this Account acct, double version, HttpRequestMessage request)
         {
             if (acct == null)

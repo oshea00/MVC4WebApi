@@ -197,8 +197,10 @@
     <Compile Include="Controllers\CustomControllerSelector.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Controllers\UserProvider.cs" />
     <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\AuthToken.cs" />
     <Compile Include="Domain\Data\AccountRepo.cs" />
     <Compile Include="Extensions\MapExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,7 +209,9 @@
     <Compile Include="Hubs\NotifyHub.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountStatsModel.cs" />
+    <Compile Include="Models\AuthTokenModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
