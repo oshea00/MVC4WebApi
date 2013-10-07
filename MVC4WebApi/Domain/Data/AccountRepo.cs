@@ -19,7 +19,9 @@ namespace MVC4WebApi.Domain.Data
     public class AccountRepo : IAccountRepo
     {
         List<Account> _accounts;
-
+        string[] _name1 = new[] {"Bank of America","Bank of Hong Kong","AIG","State Street","BONY","US Bank","Mellon Bank"};
+        string[] _name2 = new[] {"Liability","Equity","Asset","Clearing","Holding","Escrow","Receivable","Payable"};
+        
         public AccountRepo()
         {
             var rand = new Random(1000);
@@ -28,10 +30,12 @@ namespace MVC4WebApi.Domain.Data
             _accounts = new List<Account>();
             for (var i = 0; i < 1000; i++)
             {
+                var name1 = _name1[rand.Next(1,_name1.Count())];
+                var name2 = _name2[rand.Next(1,_name2.Count())];
                 var acct = new Account { 
                     Id = (i + 1), 
                     AccountCode = "A" + String.Format("{0:D4}", i), 
-                    Name = "Account " + i, 
+                    Name = name1 + " " + name2, 
                     IsActive = (i % 10) != 0, 
                     Balance = (rand.Next(1,11)*1000.00), 
                     BalanceDate = balDate 
