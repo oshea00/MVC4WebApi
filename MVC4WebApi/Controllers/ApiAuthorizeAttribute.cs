@@ -41,7 +41,8 @@ namespace MVC4WebApi.Controllers
                 // 
                 if (authtoken != null && authtoken.ApiUser == apikey && authtoken.Expiration > DateTime.UtcNow)
                 {
-
+                    // Our token checks have passed - if asked, we'll check the
+                    // authorization header for user credentials.
                     if (_perUser)
                     {
                         // If we are already authenticated no need to re-check authorization header
