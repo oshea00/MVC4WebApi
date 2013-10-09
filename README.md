@@ -2,6 +2,8 @@ WebApi 2 and playing around with REST versioning. Also, AngularJS setup to use n
 
 ==ToDos
 
+* Error Handling
+* Metadata
 * Hub broadcasts when list changes. Clients can self-sync.
 * Additional tests for token request controller.
 * OAuth 
@@ -14,6 +16,10 @@ WebApi 2 and playing around with REST versioning. Also, AngularJS setup to use n
 * Role provider
 * Environmental settings
 * Health-check page/api for admins
+
+
+
+
 
 
 
