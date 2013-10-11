@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 mainApp.controller('MainController',
-    function MainController($scope, $modal, accountSvc) {
+    function MainController($scope, $modal, accountSvc, $log) {
         $scope.pageSize = 10;
         $scope.currentPage = 1;
         $scope.maxPages = 10;
